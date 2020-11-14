@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Teacher Portal{% endblock %}
+
+{% block main %}
+    <h1 class="my-4">Welcome to Teacher Portal</h1>
+    <p>Портал который улучшит Вашу работу!</p>
+    <hr>
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <h4 class="card-header">Homeworks</h4>
+                <div class="card-body">
+                    <p class="card-text">Посмотреть статистику по выдаче дз</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'main:homework' %}" class="btn btn-primary">Начать</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <h4 class="card-header">Comments</h4>
+                <div class="card-body">
+                    <p class="card-text">Написать комментарий по студенту</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'main:comments' %}" class="btn btn-primary">Начать</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <h4 class="card-header">Passwords</h4>
+                <div class="card-body">
+                    <p class="card-text">Найти забытый студентом пароль</p>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'main:passwords' %}" class="btn btn-primary">Начать</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

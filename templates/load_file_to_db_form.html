@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Teacher Portal | Upload file {% endblock %}
+
+{% block main %}
+    <!-- Upload form. Note enctype attribute! -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input name="myFile" type="file">
+        <p><input type="submit" value="Upload"/></p>
+    </form>
+{% endblock %}
