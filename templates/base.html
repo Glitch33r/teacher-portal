@@ -9,6 +9,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/modern-business.css' %}" rel="stylesheet">
@@ -31,13 +32,16 @@
                        href="{% url 'main:homework' %}">Homeworks</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/passwords' %}active{% endif %}" href="{% url 'main:passwords' %}">Passwords</a>
+                    <a class="nav-link {% if request.path == '/passwords' %}active{% endif %}"
+                       href="{% url 'main:passwords' %}">Passwords</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/comments' %}active{% endif %}" href="{% url 'main:comments' %}">Comments</a>
+                    <a class="nav-link {% if request.path == '/comments' %}active{% endif %}"
+                       href="{% url 'main:comments' %}">Comments</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/contact-us' %}active{% endif %}" href="{% url 'main:contact-us' %}">Contact</a>
+                    <a class="nav-link {% if request.path == '/contact-us' %}active{% endif %}"
+                       href="{% url 'main:contact-us' %}">Contact</a>
                 </li>
             </ul>
         </div>
@@ -68,9 +72,9 @@
 
 
 <!-- Bootstrap core JavaScript -->
-<script src="{% static 'jquery/jquery.min.js' %}"></script>
+<script src="{% static 'jquery/jquery.js' %}"></script>
 <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
+{% block add_script %}{% endblock %}
 
 </body>
 </html>

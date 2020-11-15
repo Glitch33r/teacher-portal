@@ -1,7 +1,11 @@
 import json
 
 from django.http import JsonResponse
+from django.template.loader import render_to_string
+from django.http import HttpResponse
 from django.shortcuts import render
+from .logbook_connection import LogbookBot
+from django.views.decorators.csrf import csrf_exempt
 
 
 def remove_keys(data, back='fio_teach', keys=('id_form', 'form_name', 'fio_teach')):
@@ -21,7 +25,21 @@ def comments(request):
     return render(request, 'comment_index.html')
 
 
+@csrf_exempt
 def student_passwords(request):
+    bot = LogbookBot()
+    if request.is_ajax():
+        if request.POST.get('type') == 'login':
+            login = request.POST.get('login')
+            password = request.POST.get('password')
+            if bot.login(login, password):
+                html = render_to_string('password_group_select.html', {'data': bot.get_groups()})
+                return HttpResponse(html)
+        elif request.POST.get('type') == 'group':
+            group_id = request.POST.get('group')
+            html = render_to_string('password_student_select.html', {'data': bot.get_students_of_group(group_id)})
+            return HttpResponse(html)
+
     return render(request, 'password_index.html')
 
 
