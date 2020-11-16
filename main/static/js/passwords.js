@@ -1,17 +1,15 @@
-function logbook_login(url) {
+function get_students(value) {
     $.ajax({
-        url: url, // the endpoint
+        url: "passwords", // the endpoint
         type: "POST", // http method
         data: {
-            type: 'login',
-            login: $('#login').val(),
-            password: $('#password').val(),
-            // csrfmiddlewaretoken: csrf_token
+            type: 'group',
+            group: value,
         }, // data sent with the post request
 
         // handle a successful response
         success: function (data) {
-            $('.col-sm-4').html(data)
+            $('#students').html(data)
         },
 
         // handle a non-successful response
