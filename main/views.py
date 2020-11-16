@@ -21,6 +21,7 @@ def index(request):
     return render(request, 'index.html')
 
 
+@csrf_exempt
 def comments(request):
     return render(request, 'comment_index.html')
 

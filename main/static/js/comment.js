@@ -1,3 +1,10 @@
+
+let group_id = '';
+let stud_id = '';
+let subj_id = 0;
+let comment_text = '';
+
+
 function get_students_of_group() {
 
 }

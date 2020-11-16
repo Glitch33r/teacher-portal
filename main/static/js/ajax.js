@@ -6,7 +6,6 @@ function logbook_login(url) {
             type: 'login',
             login: $('#login').val(),
             password: $('#password').val(),
-            // csrfmiddlewaretoken: csrf_token
         }, // data sent with the post request
 
         // handle a successful response
