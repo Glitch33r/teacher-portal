@@ -23,6 +23,35 @@ def index(request):
 
 @csrf_exempt
 def comments(request):
+    bot = LogbookBot()
+    error = ''
+    if request.is_ajax():
+        if request.POST.get('type') == 'login':
+            login = request.POST.get('login')
+            password = request.POST.get('password')
+            if bot.login(login, password):
+                html = render_to_string('comment_form.html', {'groups': bot.get_groups()})
+                return HttpResponse(html)
+            else:
+                error = 'Проверьте правильность введенного логина и пароля.'
+                return JsonResponse({'error': error}, status=400)
+        elif request.POST.get('type') == 'group':
+            group_id = request.POST.get('group')
+            html = render_to_string('comment_parts/option_student.html',
+                                    {'students': bot.get_students_of_group(group_id)})
+            return HttpResponse(html)
+        elif request.POST.get('type') == 'student':
+            student_id = request.POST.get('student')
+            html = render_to_string('comment_parts/option_subject.html',
+                                    {'subjects': bot.get_subjects_for_group(student_id)})
+            return HttpResponse(html)
+        elif request.POST.get('type') == 'generate':
+            criteria = request.POST.get('criteria')
+            print(criteria)
+            # html = render_to_string('comment_parts/option_subject.html',
+            #                         {'subjects': bot.get_subjects_for_group(student_id)})
+            return HttpResponse('OK')
+
     return render(request, 'comment_index.html')
 
 
@@ -36,6 +65,9 @@ def student_passwords(request):
             if bot.login(login, password):
                 html = render_to_string('password_group_select.html', {'data': bot.get_groups()})
                 return HttpResponse(html)
+            else:
+                error = 'Проверьте правильность введенного логина и пароля.'
+                return JsonResponse({'error': error}, status=400)
         elif request.POST.get('type') == 'group':
             group_id = request.POST.get('group')
             html = render_to_string('password_student_select.html', {'data': bot.get_students_of_group(group_id)})

@@ -5,19 +5,62 @@
 
 {% block main %}
     <h1 class="my-4">Comments</h1>
-    <p>Здесь будут комментарии</p>
+    <p>Здесь Вы можете написать комментарий студенту</p>
+    <p>
+        Как это сделать:
+    </p>
+    <ol>
+        <li>Залогиньтесь с доступами от <a href="https://logbook.itstep.org/">Logbook</a></li>
+        <li>Выберите группу</li>
+        <li>Выберите студента</li>
+        <li>Выберите предмет</li>
+        <li>Выберите критерии</li>
+        <li>Сгенерируйте его и отправьте</li>
+        <li>Готово</li>
+    </ol>
     <hr>
-
-
+    <div id="error"></div>
+    <div class="row" id="main-part">
+        <aside class="col" style="display: flex;justify-content: center;align-items: center;">
+            <div class="card">
+                <article class="card-body">
+                    <h4 class="card-title text-center mb-4 mt-1">Log in</h4>
+                    <hr>
+                    <form method="post" id="login-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                </div>
+                                <input id="login" class="form-control" placeholder="Login" type="text">
+                            </div> <!-- input-group.// -->
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                </div>
+                                <input class="form-control" id="password" placeholder="******" type="password">
+                            </div> <!-- input-group.// -->
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Login</button>
+                        </div> <!-- form-group// -->
+                    </form>
+                </article>
+            </div> <!-- card.// -->
+        </aside> <!-- col.// -->
+    </div>
 {% endblock %}
 
 {% block add_script %}
+    <script src="{% static 'js/ajax.js' %}"></script>
+    <script src="{% static 'js/comment.js' %}"></script>
     <script>
         $('#login-form').on('submit', function (event) {
             event.preventDefault();
             logbook_login("comments");
         });
     </script>
-    <script src="{% static 'js/ajax.js' %}"></script>
-    <script src="{% static 'js/comment.js' %}"></script>
 {% endblock %}

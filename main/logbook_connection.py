@@ -53,7 +53,7 @@ class LogbookBot:
     def get_students_of_group(self, group_id: str):
         """Students for chosen group"""
         students = []
-        payload = {"group": group_id}
+        payload = {"group": str(group_id)}
         code, data = self.request('students/get-students-short', payload)
         data = json.loads(data)
         for row in data:
@@ -65,7 +65,7 @@ class LogbookBot:
     def get_subjects_for_group(self, stud_id: str):
         """Subjects for student of chosen group"""
         subjects = []
-        payload = {"stud": stud_id}
+        payload = {"stud": str(stud_id)}
         code, data = self.request('students/get-specs', payload)
         data = json.loads(data)
         for row in data:
@@ -76,7 +76,7 @@ class LogbookBot:
         """Comments for chosen student"""
         comments = []
         payload = {
-            "stud": stud_id
+            "stud": str(stud_id)
         }
         code, data = self.request('students/get-comments', payload)
         data = json.loads(data)

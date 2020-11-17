@@ -1,10 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<form id="comment-form" style="margin: 0 1rem 1rem 1rem;">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="selectGroup">Выбор группы:</label>
+            <select class="form-control" id="selectGroup">
+                <option selected>---------</option>
+                {% for group in groups %}
+                    <option value="{{ group.id }}">{{ group.name }}</option>
+                {% empty %}
+                    <option disabled>У вас нет групп.</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="selectStudent">Выбор студента:</label>
+            <select class="form-control" id="selectStudent">
+                <option>--------</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="selectSubject">Выбор предмета:</label>
+        <select class="form-control" id="selectSubject">
+            <option>--------</option>
+        </select>
+    </div>
+    <hr>
+    <div class="form-part">
+        <div id="checkboxes">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="responsible" value="irresponsible">
+                            <label class="form-check-label" for="responsible">Безответственный</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="responsible1" value="curious">
+                            <label class="form-check-label" for="responsible1">Любознательный</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="responsible2" value="good_theme">
+                            <label class="form-check-label" for="responsible2">Отлично разобрался в теме</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="responsible3" value="responsible">
+                            <label class="form-check-label" for="responsible3">Отвественный</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="responsible4" value="bad_hw">
+                            <label class="form-check-label" for="responsible4">Не выполняет дз</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="responsible5" value="smart">
+                            <label class="form-check-label" for="responsible5">Умный</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 15px;">
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="responsible6" value="active">
+                            <label class="form-check-label" for="responsible6">Активный</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="responsible7" value="bad_action">
+                            <label class="form-check-label" for="responsible7">Полохое поведение</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="responsible8" value="creative">
+                            <label class="form-check-label" for="responsible8">Креативный</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="responsible9" value="good_hw">
+                            <label class="form-check-label" for="responsible9">Положительное дз</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="responsible10" value="good_action">
+                            <label class="form-check-label" for="responsible10">Положительное поведение</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="responsible11" value="hardworker">
+                            <label class="form-check-label" for="responsible11">Трудолюбивость</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="responsible12" value="distracted">
+                            <label class="form-check-label" for="responsible12">Отвлекается</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="commentText">Текст комментария: </label>
+                <textarea class="form-control" id="commentText" rows="3"></textarea>
+            </div>
+        </div>
+        <hr>
+        <button type="button" onclick="generate_comment(event);" class="btn btn-secondary">Generate</button>
+        <button type="submit" class="btn btn-success">Send</button>
+    </div>
+</form>
+<script>
+    $('select#selectStudent').on('change', function () {
+        get_subjects_and_comments(this.value);
+    });
+    $('select#selectGroup').on('change', function () {
+        get_students_of_group(this.value);
+    });
+    $('select#selectSubject').on('change', function () {
+        get_subject(this.value);
+    });
+</script>
 
-</body>
-</html>

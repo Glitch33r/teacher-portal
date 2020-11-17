@@ -10,14 +10,17 @@ function logbook_login(url) {
 
         // handle a successful response
         success: function (data) {
-            $('.col-sm-4').html(data)
+            $('div#main-part').html(data)
         },
 
         // handle a non-successful response
         error: function (xhr, errmsg, err) {
-            $('#error').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg +
-                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            $('div#error').html("<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">" +
+                "<strong id=\"error\">"+JSON.parse(xhr.responseText)['error']+ "</strong>" +
+                "            <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">" +
+                "                <span aria-hidden=\"true\">&times;</span>" +
+                "            </button>" +
+                "        </div>"); // add the error to the dom
         }
     });
 }
