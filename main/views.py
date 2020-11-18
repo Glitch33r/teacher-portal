@@ -1,4 +1,5 @@
 import json
+import random
 
 from django.http import JsonResponse
 from django.template.loader import render_to_string
@@ -6,7 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .logbook_connection import LogbookBot
 from django.views.decorators.csrf import csrf_exempt
-
+from .models import *
 
 def remove_keys(data, back='fio_teach', keys=('id_form', 'form_name', 'fio_teach')):
     value = data.get(back)
@@ -47,10 +48,13 @@ def comments(request):
             return HttpResponse(html)
         elif request.POST.get('type') == 'generate':
             criteria = request.POST.get('criteria')
-            print(criteria)
-            # html = render_to_string('comment_parts/option_subject.html',
-            #                         {'subjects': bot.get_subjects_for_group(student_id)})
-            return HttpResponse('OK')
+            text = ''
+            for slug in criteria.split(','):
+                btn_id = Buttons.objects.get(slug=slug).id
+                phrases = Phrase.objects.filter(button_id=btn_id, lang='ru')
+                phrase = random.choice(phrases)
+                text += phrase.text + '. '
+            return HttpResponse(text)
 
     return render(request, 'comment_index.html')
 
