@@ -59,7 +59,8 @@
                 <p>Есть предложения или проблемы в работе?</p>
             </div>
             <div class="col-md-4">
-                <a class="btn btn-lg btn-secondary btn-block" href="{% url 'main:contact-us' %}">Написать</a>
+                <a class="btn btn-lg btn-secondary btn-block"
+                   href="{% url 'main:contact-us' %}">Написать</a>
             </div>
         </div>
     </div>
@@ -69,11 +70,14 @@
         </div>
     </footer>
 </div>
-
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal"
+     aria-hidden="true">
+</div>
 
 <!-- Bootstrap core JavaScript -->
 <script src="{% static 'jquery/jquery.js' %}"></script>
 <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
 {% block add_script %}{% endblock %}
 
 </body>

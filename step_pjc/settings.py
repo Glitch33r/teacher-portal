@@ -84,7 +84,7 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
     'default': dj_database_url.config(
-        default='postgres://vukmlvddpuwgke:6e31962715d3d9ae75eddcd95e49dc754075286c8958b20c41a6bc376d486356@ec2-54-247-94-127.eu-west-1.compute.amazonaws.com:5432/d7uuod9j6670mk'
+        default=config('DATABASE_URL')
     )
 }
 

@@ -100,9 +100,9 @@ class LogbookBot:
     def send_comment(self, group_id: str, stud_id: str, subj_id: int, comment: str):
         """Sending comment to server"""
         payload = {
-            "group": group_id,
-            "stud": stud_id,
-            "spec": subj_id,
+            "group": str(group_id),
+            "stud": str(stud_id),
+            "spec": int(subj_id),
             "comment": comment
         }
         error, data = self.request('students/set-comment', payload)
@@ -110,4 +110,5 @@ class LogbookBot:
         if 'success' in error:
             return True
         else:
+            print(error)
             return False

@@ -31,82 +31,69 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="responsible" value="irresponsible">
-                            <label class="form-check-label" for="responsible">Безответственный</label>
+                            <input class="form-check-input" type="checkbox" id="irresponsible" onclick="toggle_checkbox(this, 'responsible')" value="irresponsible">Безответственный
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="responsible1" value="curious">
-                            <label class="form-check-label" for="responsible1">Любознательный</label>
+                            <input class="form-check-input" type="checkbox" id="curious" value="curious">Любознательный
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="responsible2" value="good_theme">
-                            <label class="form-check-label" for="responsible2">Отлично разобрался в теме</label>
+                            <input class="form-check-input" type="checkbox" id="good_theme" value="good_theme">Отлично разобрался в теме
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="responsible3" value="responsible">
-                            <label class="form-check-label" for="responsible3">Отвественный</label>
+                            <input class="form-check-input" type="checkbox" id="responsible" onclick="toggle_checkbox(this, 'irresponsible')" value="responsible">Отвественный
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="responsible4" value="bad_hw">
-                            <label class="form-check-label" for="responsible4">Не выполняет дз</label>
+                            <input class="form-check-input" type="checkbox" id="bad_hw" onclick="toggle_checkbox(this, 'good_hw')" value="bad_hw">Не выполняет дз
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="responsible5" value="smart">
-                            <label class="form-check-label" for="responsible5">Умный</label>
+                            <input class="form-check-input" type="checkbox" id="smart" value="smart">Умный
                         </div>
                     </div>
                 </div>
                 <div class="row" style="margin-top: 15px;">
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="responsible6" value="active">
-                            <label class="form-check-label" for="responsible6">Активный</label>
+                            <input class="form-check-input" type="checkbox" id="active" onclick="toggle_checkbox(this, 'distracted')" value="active">Активный
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="responsible7" value="bad_action">
-                            <label class="form-check-label" for="responsible7">Полохое поведение</label>
+                            <input class="form-check-input" type="checkbox" id="bad_action" onclick="toggle_checkbox(this, 'good_action')" value="bad_action">Полохое поведение
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="responsible8" value="creative">
-                            <label class="form-check-label" for="responsible8">Креативный</label>
+                            <input class="form-check-input" type="checkbox" id="creative" value="creative">Креативный
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="responsible9" value="good_hw">
-                            <label class="form-check-label" for="responsible9">Положительное дз</label>
+                            <input class="form-check-input" type="checkbox" id="good_hw" onclick="toggle_checkbox(this, 'bad_hw')" value="good_hw">Положительное дз
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="responsible10" value="good_action">
-                            <label class="form-check-label" for="responsible10">Положительное поведение</label>
+                            <input class="form-check-input" type="checkbox" id="good_action" onclick="toggle_checkbox(this, 'bad_action')" value="good_action">Положительное поведение
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="responsible11" value="hardworker">
-                            <label class="form-check-label" for="responsible11">Трудолюбивость</label>
+                            <input class="form-check-input" type="checkbox" id="hardworker" value="hardworker">Трудолюбивость
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="responsible12" value="distracted">
-                            <label class="form-check-label" for="responsible12">Отвлекается</label>
+                            <input class="form-check-input" type="checkbox" id="distracted" onclick="toggle_checkbox(this, 'active')" value="distracted">Отвлекается
                         </div>
                     </div>
                 </div>
@@ -131,5 +118,8 @@
     $('select#selectSubject').on('change', function () {
         get_subject(this.value);
     });
+    $('#comment-form').on('submit', function (event) {
+        send_comment(event);
+    })
 </script>
 

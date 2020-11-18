@@ -9,6 +9,7 @@ from .logbook_connection import LogbookBot
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 
+
 def remove_keys(data, back='fio_teach', keys=('id_form', 'form_name', 'fio_teach')):
     value = data.get(back)
     for key in keys:
@@ -25,7 +26,6 @@ def index(request):
 @csrf_exempt
 def comments(request):
     bot = LogbookBot()
-    error = ''
     if request.is_ajax():
         if request.POST.get('type') == 'login':
             login = request.POST.get('login')
@@ -48,15 +48,38 @@ def comments(request):
             return HttpResponse(html)
         elif request.POST.get('type') == 'generate':
             criteria = request.POST.get('criteria')
+            print(criteria == '')
             text = ''
-            for slug in criteria.split(','):
-                btn_id = Buttons.objects.get(slug=slug).id
-                phrases = Phrase.objects.filter(button_id=btn_id, lang='ru')
-                phrase = random.choice(phrases)
-                text += phrase.text + '. '
-            return HttpResponse(text)
+            if criteria != '':
+                for slug in criteria.split(','):
+                    btn_id = Buttons.objects.get(slug=slug).id
+                    phrases = Phrase.objects.filter(button_id=btn_id, lang='ru')
+                    phrase = random.choice(phrases)
+                    text += phrase.text + '. '
+                return HttpResponse(text)
+            else:
+                html = error_handling('Ошибка', 'Произошла ошибка. Не выбраны критерии для генерации.')
+                return HttpResponse(html, status=400)
+        elif request.POST.get('type') == 'send':
+            group_id = request.POST.get('group')
+            student_id = request.POST.get('student')
+            subject_id = request.POST.get('subject')
+            text = request.POST.get('comment')
+            send = bot.send_comment(group_id, student_id, subject_id, text)
+            if send:
+                html = error_handling('Успех!', 'Комментарий добавлен!')
+                return HttpResponse(html)
+            else:
+                html = error_handling('Ошибка',
+                                      'Произошла ошибка. Проверьте данные и попробуйте еще раз. '
+                                      'Или обратитесь к администратору.')
+                return HttpResponse(html)
 
     return render(request, 'comment_index.html')
+
+
+def error_handling(title, msg):
+    return render_to_string('modal.html', {'title': title, 'msg': msg})
 
 
 @csrf_exempt

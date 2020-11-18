@@ -56,13 +56,11 @@ function set_selected() {
     $('#checkboxes input:checked').each(function () {
         selected.push($(this).attr('value'));
     });
-
 }
 
 function generate_comment(event) {
     event.preventDefault();
     set_selected();
-    console.log(selected)
 
     // if ARRAY is empty
 
@@ -81,35 +79,46 @@ function generate_comment(event) {
 
         // handle a non-successful response
         error: function (xhr, errmsg, err) {
+            $("#modal").html(xhr.responseText);
+            $('#modal').modal('show');
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
     });
 }
 
-function send_comment(event, g_id, st_id, sb_id) {
+function send_comment(event) {
     event.preventDefault();
 
-    // if Text is empty
 
     $.ajax({
         url: "comments", // the endpoint
         type: "POST", // http method
         data: {
             type: 'send',
-            group_id: g_id,
-            stud_id: st_id,
-            subj_id: sb_id,
+            group: group_id,
+            student: stud_id,
+            subject: subj_id,
             comment: $("#commentText").val(),
         }, // data sent with the post request
 
         // handle a successful response
         success: function (data) {
-            $("#commentText").val(data);
+            $("#modal").html(data);
+            $('#modal').modal('show');
         },
 
         // handle a non-successful response
         error: function (xhr, errmsg, err) {
+
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
     });
+}
+
+function toggle_checkbox(box, toggle) {
+    if (box.checked) {
+        $("input#" + toggle).attr("disabled", true);
+    } else {
+        $("input#" + toggle).removeAttr("disabled");
+    }
 }
