@@ -119,8 +119,7 @@ def contact(request):
         msg = f"От: <b>{name}</b>\nEmail: <b>{email}</b>\nText:\n{text}"
 
         answ = telegram_bot_sendtext(msg)
-        print(answ)
-        html = error_handling('Успех!', 'Комментарий добавлен!')
+        html = error_handling('Успех!', 'Сообщение отправлено администратору!')
         return HttpResponse(html)
 
     return render(request, 'contact_us_index.html')
