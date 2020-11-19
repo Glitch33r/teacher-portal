@@ -1,5 +1,5 @@
 {% extends  'base.html' %}
-
+{% load static %}
 {% block title %}Teacher Portal | Contact Us {% endblock %}
 
 {% block main %}
@@ -9,13 +9,12 @@
     <hr>
     <div class="row">
         <div class="col-lg-8 mb-4">
-            <form name="sentMessage" id="contactForm" novalidate>
+            <form name="sendMessage" id="contactForm" novalidate>
                 <div class="control-group form-group">
                     <div class="controls">
                         <label>ФИО:</label>
                         <input type="text" class="form-control" id="name" required
                                data-validation-required-message="Please enter your name.">
-                        <p class="help-block"></p>
                     </div>
                 </div>
                 <div class="control-group form-group">
@@ -33,12 +32,13 @@
                                   style="resize:none"></textarea>
                     </div>
                 </div>
-                <div id="success"></div>
-                <!-- For success/fail messages -->
-                <button type="submit" class="btn btn-primary" id="sendMessageButton">Send Message</button>
+                <button type="submit" onsubmit="submit_contact_form(event);" class="btn btn-primary"
+                        id="sendMessageButton">Отправить
+                </button>
             </form>
         </div>
-
     </div>
-
+{% endblock %}
+{% block  add_script %}
+    <script src="{% static 'js/contact_me.js' %}"></script>
 {% endblock %}

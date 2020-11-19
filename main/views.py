@@ -1,6 +1,7 @@
 import json
 import random
 
+import requests
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.http import HttpResponse
@@ -8,6 +9,7 @@ from django.shortcuts import render
 from .logbook_connection import LogbookBot
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
+from decouple import config
 
 
 def remove_keys(data, back='fio_teach', keys=('id_form', 'form_name', 'fio_teach')):
@@ -107,8 +109,28 @@ def homework(request):
     return render(request, 'homework_index.html')
 
 
+@csrf_exempt
 def contact(request):
+    if request.is_ajax():
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        text = request.POST.get('message')
+
+        msg = f"От: <b>{name}</b>\nEmail: <b>{email}</b>\nText:\n{text}"
+
+        answ = telegram_bot_sendtext(msg)
+        html = error_handling('Успех!', 'Комментарий добавлен!')
+        return HttpResponse(html)
+
     return render(request, 'contact_us_index.html')
+
+
+def telegram_bot_sendtext(bot_message):
+    token = config('TG_TOKEN')
+    chat_id = config('TG_CHAT_ID')
+    send_text = 'https://api.telegram.org/bot' + token + '/sendMessage?chat_id=' + chat_id + '&parse_mode=HTML&text=' + bot_message
+    response = requests.get(send_text)
+    return response.json()
 
 
 def load_file_to_db(request):
